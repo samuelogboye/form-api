@@ -53,6 +53,11 @@ mail = Mail(app)
 
 
 # Routes
+@app.route('/')
+def index():
+        return "This is a test"
+
+
 @app.route('/test')
 def test():
         return "Hello World!"
@@ -94,7 +99,7 @@ def push_mail():
                         'title': admin_msg_title,
                         'body': admin_msg_body,
                         'name': name,
-                        'mg_all': msg_all
+                        'message': msg_all
                 }
                 admin_msg.html = render_template("admin_email.html", data=admin_data)
 
