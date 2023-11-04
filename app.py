@@ -105,7 +105,7 @@ def push_mail():
 
                 mail.send(admin_msg)  # Send the notification email to the admin
 
-                return jsonify({'msg': 'Contact created and email sent', 'status': "success"}), 201
+                return jsonify({'msg': 'Email sent', 'status': "success"}), 201
         except Exception as e:
                 print(e)
                 return jsonify({'msg': 'email not sent', 'error': str(e)}), 500
