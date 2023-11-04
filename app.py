@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
@@ -18,11 +17,6 @@ app.config['MAIL_PORT'] = 587 # 465
 app.config['MAIL_USE_TLS'] = True # False
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-
-# SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
 # Initialize Flask-Mail
 mail = Mail(app)
@@ -114,4 +108,4 @@ def push_mail():
 
 
 if __name__ == '__main__':
-        app.run(debug=True)
+        app.run(debug=False, host='0.0.0.0')
