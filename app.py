@@ -35,6 +35,8 @@ def test():
 
 @app.route('/mail/', methods=['POST'])
 def push_mail():
+        admin_email = os.getenv('ADMIN_EMAIL')
+
         name = request.form['name']
         sender_msg_title = request.form['msg_title']
         email = request.form['email']
@@ -45,8 +47,9 @@ def push_mail():
         msg_title = "Thanks for contacting us"
         sender = "noreply@app.com"
         msg = Message(msg_title,sender=sender,recipients=[email])
-        msg_body = "We've received your message and will get back to you as soon as possible"
+        msg_body = "We've received your message and will get back to you as soon as possible. You can also reply this email if you have any other question."
         msg.body = ""
+        msg.reply_to = admin_email
         data = {
 		'app_name': "Revpoint",
 		'title': msg_title,
@@ -60,7 +63,6 @@ def push_mail():
                 mail.send(msg)
 
                  # Send a notification email to the admin
-                admin_email = os.getenv('ADMIN_EMAIL')
                 admin_msg_title = "New Message Received"
                 admin_msg = Message(admin_msg_title, sender=sender, recipients=[admin_email])
                 admin_msg_body = f"New message received from {name} ({email})."
