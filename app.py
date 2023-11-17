@@ -8,7 +8,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Secret key
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -36,10 +36,10 @@ def test():
 @app.route('/mail/', methods=['POST'])
 def push_mail():
         name = request.form['name']
-        msg_title = request.form['msg_title']
+        sender_msg_title = request.form['msg_title']
         email = request.form['email']
         msg_all = request.form['msg']
-        if not name or not msg_title or not msg_all or not email:
+        if not name or not sender_msg_title or not msg_all or not email:
                 return jsonify({'error': 'Missing data'}), 400
 
         msg_title = "Thanks for contacting us"
@@ -70,7 +70,8 @@ def push_mail():
                         'title': admin_msg_title,
                         'body': admin_msg_body,
                         'name': name,
-                        'message': msg_all
+                        'message': msg_all,
+                        'sender_title': sender_msg_title,
                 }
                 admin_msg.html = render_template("admin_email.html", data=admin_data)
 
