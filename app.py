@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
 
 # Load environment variables from the .env file
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # Secret key
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -20,37 +22,6 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
 # Initialize Flask-Mail
 mail = Mail(app)
-
-# # Model
-# class Contact(db.Model):
-#         id = db.Column(db.Integer, primary_key=True)
-#         name = db.Column(db.String(100))
-#         email = db.Column(db.String(100))
-#         msg_title = db.Column(db.String(100))
-#         msg = db.Column(db.String(100))
-
-#         def __init__(self, msg_title, msg, name, email):
-#                 self.name = name
-#                 self.email = email
-#                 self.msg_title = msg_title
-#                 self.msg = msg
-
-#         def __repr__(self):
-#                 return '<Contact %r>' % self.name
-
-#         def serialize(self):
-#                 return {
-#                         'id': self.id,
-#                         'name': self.name,
-#                         'email': self.email,
-#                         'msg_title': self.msg_title,
-#                         'msg': self.msg
-#                 }
-
-# # Use the app context to create the Contact table
-# with app.app_context():
-#     db.create_all()
-
 
 # Routes
 @app.route('/')
