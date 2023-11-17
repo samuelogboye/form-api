@@ -65,6 +65,8 @@ def push_mail():
                 admin_msg = Message(admin_msg_title, sender=sender, recipients=[admin_email])
                 admin_msg_body = f"New message received from {name} ({email})."
                 admin_msg.body = admin_msg_body
+                # Set the reply-to email address
+                admin_msg.reply_to = email
                 admin_data = {
                         'app_name': "Revpoint",
                         'title': admin_msg_title,
