@@ -8,7 +8,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 # Secret key
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
